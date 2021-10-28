@@ -1,0 +1,81 @@
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.Color;
+import javax.swing.*;
+import java.awt.Polygon;
+import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
+import java.awt.Color;
+import java.lang.Object;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+/**
+ * A tower shape of any shape that can be positioned anywhere on the screen. 
+ *
+ * @ewang675 (your name)
+ * @21 oct 2021 (a version number or a date)
+ */
+public class Tower
+{
+    // instance variables - replace the example below with your own
+    private int xLeft;
+    private int yTop;
+    private int width;
+    private int height;
+    private Color fillColor;
+
+    /**
+     * Constructs a tower with the given parameters. 
+     * @param x the x coordinate of the top left corner
+     * @param y the y coordinate of the top left corner
+     * @param width the width of the tower
+     * @param height the height of the tower
+     */
+    public Tower(int initialX, int initialY, int initialWidth, int initialHeight, Color initialColor)
+    {
+        this.xLeft = initialX;
+        this.yTop = initialY;
+        this.width = initialWidth;
+        this.height = initialHeight;
+        this.fillColor = initialColor;
+    }
+
+    /**
+     * Draws the tower
+     * @param g2 the graphics context
+     */
+    public void draw(Graphics2D g2)
+    {
+        Rectangle2D.Double body = new Rectangle2D.Double(this.xLeft+this.width*0.05, this.yTop+this.height*0.4, this.width*0.9, this.height*0.6);
+        Rectangle2D.Double highWindow = new Rectangle2D.Double(this.xLeft+this.width*0.4, this.yTop+this.height*0.5, this.width*0.2, this.height*0.1);
+        Rectangle2D.Double lowWindow = new Rectangle2D.Double(this.xLeft+this.width*0.4, this.yTop+this.height*0.7, this.width*0.2, this.height*0.1);
+        Path2D roof = new Path2D.Double(); 
+            roof.moveTo(this.xLeft+this.width/2, this.yTop+0.1*this.height);
+            roof.lineTo(this.xLeft, this.yTop+0.4*this.height);
+            roof.lineTo(this.xLeft+this.width, this.yTop+0.4*this.height);
+        Rectangle2D.Double flag = new Rectangle2D.Double(this.xLeft+0.4*this.width, this.yTop, 0.1*this.width, 0.05*this.height);
+        Rectangle2D.Double flagpole = new Rectangle2D.Double(this.xLeft+0.495*this.width, this.yTop, 0.01*this.width, 0.15*this.height);
+        Rectangle2D.Double crenel1 = new Rectangle2D.Double(this.xLeft+0.02*this.width, this.yTop+0.3*this.height, this.width*0.08, this.height*0.1);
+        Rectangle2D.Double crenel2 = new Rectangle2D.Double(this.xLeft+0.9*this.width, this.yTop+0.3*this.height, this.width*0.08, this.height*0.1);
+        Rectangle2D.Double balcony = new Rectangle2D.Double(this.xLeft, this.yTop+0.35*this.height, this.width, this.height*0.05);
+        
+        g2.setColor(this.fillColor); 
+        g2.fill(body); 
+        g2.fill(roof);
+        g2.fill(flagpole);
+        g2.fill(flag);
+        g2.fill(crenel1);
+        g2.fill(crenel2); 
+        g2.fill(balcony); 
+        Color golden = new Color(255, 208, 0);
+        g2.setColor(golden);
+        g2.fill(highWindow); 
+        g2.fill(lowWindow);
+
+        // this is the ugliest thing i've ever seen hahahahaha 
+    }
+}
