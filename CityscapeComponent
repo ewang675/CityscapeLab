@@ -1,0 +1,82 @@
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import javax.swing.JComponent;
+import java.awt.Color;
+import java.lang.Package;
+/**
+ * Class that creates instances of the classes that comprise the cityscape and delegates drawing the
+ *  cityscape to these object.
+ * 
+ * @author gcschmit
+ * @version 18 July 2014
+ */
+public class CityscapeComponent extends JComponent
+{
+    // define the objects in your Cityscape as instance variables
+    // ..
+    private Ghost ghost = new Ghost(100, 100, 50, 100); 
+    
+    // define the CityscapeComponent contructor and intiailize all instance variables
+    // ...
+    
+    
+    /**
+     * This method is invoked by the Java Run-Time whenever the component needs to be redrawn.
+     * It does not need to be invoked explicitly.
+     * 
+     * @param g a reference to the Graphics object used for all drawing operations
+     *
+     */
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        Graphics2D g2 = (Graphics2D) g;
+        Color grey = new Color(40, 40, 40);
+        Color lightGrey = new Color(60, 60, 60);
+        Color dark1Grey = new Color(10, 10, 10); 
+        Color dark2Grey = new Color(30, 30, 30);
+        Color dark3Grey = new Color(50, 50, 50); 
+        
+        Tower centralTower = new Tower(300, 50, 200, 300, grey);
+        Tower leftTower = new Tower(150, 125, 100, 200, lightGrey);
+        Tower rightTower = new Tower(550, 125, 100, 200, lightGrey);
+        
+        Rook upLeftRook = new Rook(125, 275, 130, 175, grey); 
+        Rook upRightRook = new Rook(545, 275, 130, 175, grey);
+        Rook downLeftRook = new Rook(50, 400, 225, 125, lightGrey);
+        Rook downRightRook = new Rook(525, 400, 225, 125, lightGrey);
+        
+        Wall backWall = new Wall(175, 200, 450, 200, dark1Grey);
+        Wall middleWall = new Wall(150, 300, 500, 175, dark2Grey);
+        Wall frontWall = new Wall (100, 450, 600, 75, dark3Grey); 
+        
+        backWall.draw(g2); 
+        centralTower.draw(g2);
+        leftTower.draw(g2);
+        rightTower.draw(g2);
+        middleWall.draw(g2);
+        upLeftRook.draw(g2);
+        upRightRook.draw(g2);
+        frontWall.draw(g2);
+        downLeftRook.draw(g2);
+        downRightRook.draw(g2);
+        ghost.draw(g2);
+    }
+    
+    /**
+     * Animate the cityscape by updating the objects such that they appear to be animated when
+     *      they are next drawn.
+     *
+     */
+    public void nextFrame()
+    {
+        // update the objects in the cityscape so they are animated
+        // ...;
+        ghost.moveRight(3);
+        ghost.grow(1.01);
+        
+        // request that the Java Runtime repaints this component by invoking its paintComponent method
+        //  do not explicitly invoke the paintComponent method
+        repaint();
+    }
+}
