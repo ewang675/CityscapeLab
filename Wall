@@ -1,0 +1,80 @@
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.Color;
+import javax.swing.*;
+import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
+import java.awt.Color;
+import java.lang.Object;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+/**
+ * A wall shape of any shape that can be positioned anywhere on the screen. 
+ *
+ * @ewang675 (your name)
+ * @21 oct 2021 (a version number or a date)
+ */
+public class Wall
+{
+    // instance variables - replace the example below with your own
+    private int xLeft;
+    private int yTop;
+    private int width;
+    private int height;
+    private Color fillColor;
+
+    /**
+     * Constructs a wall with the given parameters. 
+     * @param x the x coordinate of the top left corner
+     * @param y the y coordinate of the top left corner
+     * @param width the width of the tower
+     * @param height the height of the tower
+     */
+    public Wall(int initialX, int initialY, int initialWidth, int initialHeight, Color initialColor)
+    {
+        this.xLeft = initialX;
+        this.yTop = initialY;
+        this.width = initialWidth;
+        this.height = initialHeight;
+        this.fillColor = initialColor;
+    }
+
+    /**
+     * Draws the wall
+     * @param g2 the graphics context
+     */
+    public void draw(Graphics2D g2)
+    {
+        Rectangle2D.Double body = new Rectangle2D.Double(this.xLeft, this.yTop+0.2*this.height, this.width, 0.8*this.width);
+        Rectangle2D.Double crenel1 = new Rectangle2D.Double(this.xLeft, this.yTop, 0.09*this.width, 0.2*this.height);
+        Rectangle2D.Double crenel2 = new Rectangle2D.Double(this.xLeft+0.13*this.width, this.yTop, 0.09*this.width, 0.2*this.height);
+        Rectangle2D.Double crenel3 = new Rectangle2D.Double(this.xLeft+0.26*this.width, this.yTop, 0.09*this.width, 0.2*this.height);
+        Rectangle2D.Double crenel4 = new Rectangle2D.Double(this.xLeft+0.39*this.width, this.yTop, 0.09*this.width, 0.2*this.height);
+        Rectangle2D.Double crenel5 = new Rectangle2D.Double(this.xLeft+0.52*this.width, this.yTop, 0.09*this.width, 0.2*this.height);
+        Rectangle2D.Double crenel6 = new Rectangle2D.Double(this.xLeft+0.65*this.width, this.yTop, 0.09*this.width, 0.2*this.height);
+        Rectangle2D.Double crenel7 = new Rectangle2D.Double(this.xLeft+0.78*this.width, this.yTop, 0.09*this.width, 0.2*this.height);
+        Rectangle2D.Double crenel8 = new Rectangle2D.Double(this.xLeft+0.91*this.width, this.yTop, 0.09*this.width, 0.2*this.height);
+        
+        Rectangle2D.Double lowerWindow = new Rectangle2D.Double(this.xLeft+0.4*this.width, this.yTop+0.6*this.height, 0.2*this.width, 0.2*this.height);
+        Ellipse2D.Double upperWindow = new Ellipse2D.Double(this.xLeft+0.4*this.width, this.yTop+0.4*this.height, 0.2*this.width, 0.4*this.height);
+        
+        g2.setColor(this.fillColor); 
+        g2.fill(body); 
+        g2.fill(crenel1);
+        g2.fill(crenel2);
+        g2.fill(crenel3);
+        g2.fill(crenel4);
+        g2.fill(crenel5);
+        g2.fill(crenel6);
+        g2.fill(crenel7);
+        g2.fill(crenel8);
+        Color golden = new Color(255, 208, 0);
+        g2.setColor(golden);
+        g2.fill(lowerWindow);
+        g2.fill(upperWindow); 
+    }
+}
