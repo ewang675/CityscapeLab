@@ -1,0 +1,95 @@
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.Color;
+import javax.swing.*;
+import java.awt.Polygon;
+import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
+import java.awt.Color;
+import java.lang.Object;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+/**
+ * A ghost shape that can be placed anywhere on the screen. 
+ *
+ * @ewang675 (your name)
+ * @26 oct 2021 (a version number or a date)
+ */
+public class Ghost
+{
+    private int xLeft;
+    private int yTop;
+    private int width;
+    private int height;
+    
+    /**
+     * Constructs a ghost with the given parameters. 
+     * @param initialX the x coordinate of the top left corner
+     * @param initialY the y coordinate of the top left corner
+     */
+    public Ghost(int initialX, int initialY, int initialWidth, int initialHeight)
+    {
+        this.xLeft = initialX;
+        this.yTop = initialY;
+        this.width = initialWidth;
+        this.height = initialHeight;
+    }
+    
+    /**
+     * Draws the ghost.
+     * @param g2 the graphics context
+     */
+    public void draw(Graphics2D g2)
+    {
+        Ellipse2D.Double head = new Ellipse2D.Double(this.xLeft, this.yTop, this.width, 0.6*this.height);
+        Rectangle2D.Double body = new Rectangle2D.Double(this.xLeft, this.yTop+0.3*this.height, this.width, 0.4*this.height);
+        Path2D rightTail = new Path2D.Double();
+            rightTail.moveTo(this.xLeft, this.yTop+0.7*this.height);
+            rightTail.lineTo(this.xLeft+0.3*this.width, this.yTop+0.7*this.height);
+            rightTail.lineTo(this.xLeft, this.yTop+this.height); 
+        Path2D middleTail = new Path2D.Double();
+            rightTail.moveTo(this.xLeft+0.3*this.width, this.yTop+0.7*this.height);
+            rightTail.lineTo(this.xLeft+0.7*this.width, this.yTop+0.7*this.height);
+            rightTail.lineTo(this.xLeft+this.width/2, this.yTop+this.height); 
+        Path2D leftTail = new Path2D.Double();
+            rightTail.moveTo(this.xLeft+0.7*this.width, this.yTop+0.7*this.height);
+            rightTail.lineTo(this.xLeft+this.width, this.yTop+0.7*this.height);
+            rightTail.lineTo(this.xLeft+this.width, this.yTop+this.height); 
+        Ellipse2D.Double leftEye = new Ellipse2D.Double(this.xLeft+0.3*this.width, this.yTop+0.2*this.height, 0.15*this.width, 0.2*this.height);
+        Ellipse2D.Double rightEye = new Ellipse2D.Double(this.xLeft+0.55*this.width, this.yTop+0.2*this.height, 0.15*this.width, 0.2*this.height);
+        
+        g2.setColor(Color.WHITE);
+        g2.fill(head);
+        g2.fill(body);
+        g2.fill(rightTail);
+        g2.fill(middleTail);
+        g2.fill(leftTail);
+        g2.setColor(Color.BLACK);
+        g2.fill(leftEye);
+        g2.fill(rightEye);
+    }
+    
+    /**
+     * Moves the ghost to the right a given number of pixels.
+     * @param pixels how many pixels the ghost is moved by
+     */
+    public void moveRight(int pixels)
+    {
+        this.xLeft += pixels;
+    }
+    
+    /**
+     * Changes the size of the ghost by a given proportion. 
+     * @param scale the proportion the size of the ghost is changed by
+     */
+    public void grow(double scale)
+    {
+        this.height *= scale;
+        this.width *= scale;
+    }
+    
+}
